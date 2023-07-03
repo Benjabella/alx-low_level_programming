@@ -1,46 +1,29 @@
 #include "main.h"
-
 /**
- * leet - leet encoder
- * @str: string to be encoded
- *
- * Return: address of the encoded string
+ * leet - encodes a string into 1337
+ * @c: String
+ * Return: string that is encoded
  */
-
-char *leet(char *str)
+char *leet(char *c)
 {
-	int i = 0;
+	char *cp = c;
+	char key[] = {'A', 'E', 'O', 'T', 'L'};
+	int value[] = {4, 3, 0, 7, 1};
+	unsigned int i;
 
-	while (str[i] != '\0')
+	while (*c)
 	{
-		str[i] = transform(str[i]);
-		i++;
-	}
-	return (str);
-}
-
-/**
- * transform - helper function to map a letter with it's leet encoding
- * @x: char to be encoded
- *
- * Return: the encoded char
- */
-
-char transform(char x)
-{
-	char mapping_low[8] = {'o', 'l', '\0', 'e', 'a', '\0', '\0', 't'};
-	char mapping_upper[8] = {'O', 'L', '\0', 'E', 'A', '\0', '\0', 'T'};
-	int i = 0;
-	char replacement = x;
-
-	while (i < 8)
-	{
-		if (x == mapping_low[i] || x == mapping_upper[i])
+		for (i = 0; i < sizeof(key) / sizeof(char); i++)
 		{
-			replacement = i + '0';
-			break;
+			/*32 is the difference between lower case letters and apper case letters*/
+			if (*c == key[i] || *c == key[i] + 32)
+			{
+				*c = 48 + value[i];
+			}
 		}
-		i++;
+		c++;
 	}
-	return (replacement);
+
+	return (cp);
+
 }
